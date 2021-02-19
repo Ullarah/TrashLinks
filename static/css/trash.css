@@ -1,0 +1,11 @@
+body{
+    margin: 0 auto;
+    width: 1024px;
+}
+.thin{
+    margin-top: 10px;
+    border: none;
+    height: 1px;
+    color: #ccc;
+    background-color: #ccc;
+}

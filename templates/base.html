@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ url_for('static', filename='css/minireset.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/spectre.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/spectre-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/trash.css') }}" rel="stylesheet">
+</head>
+<body>
+<header class="navbar">
+    <section class="navbar-section">
+        <a href="{{ url_for('index') }}"><img style="float:left;margin-left:5px;width:32px" src="{{ url_for('static', filename='img/logo.png') }}"></a>
+        <a class="btn btn-link" href="{{ url_for('index') }}"><strong>Quisquiliae</strong></a>
+        {% if session['logged_in'] %}<a class="btn btn-link" href="{{ url_for('submit') }}">Submit</a>{% endif %}
+        <a class="btn btn-link" href="{{ url_for('recent') }}">Recent</a>
+        <a class="btn btn-link" href="{{ url_for('top') }}">Top</a>
+        <a class="btn btn-link" href="{{ url_for('search') }}">Search</a>
+    </section>
+    <section class="navbar-section">{% if session['logged_in'] %}
+        <a class="btn btn-link" href="{{ url_for('user') }}{{ session['username'] }}"><strong>{{ session['username']
+            }}</strong></a>
+        <a class="btn btn-link" href="{{ url_for('logout') }}">Log Out</a>{% else %}
+        <a class="btn btn-link" href="{{ url_for('login') }}" style="float:right;">Log In</a>{% endif %}
+    </section>
+</header>
+<div class="container" id="content">
+    <section class="content">
+        {% block content %}{% endblock %}
+    </section>
+</div>
+<footer style="margin-bottom:25px" class="navbar">
+    <section class="navbar-section">{% block pagenav %}{% endblock %}</section>
+    <section class="navbar-section text-left">
+        <a class="btn btn-link" href="{{ url_for('subscribe') }}">Subscribe</a>
+        <a class="btn btn-link" href="{{ url_for('tags') }}">Tags</a>
+        <a class="btn btn-link" href="{{ url_for('domains') }}">Domains</a>
+        <a class="btn btn-link" href="{{ url_for('about') }}">About</a>
+    </section>
+</footer>
+</body>
+</html>

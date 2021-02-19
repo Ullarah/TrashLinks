@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - User Tree{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div class="divider"></div>
+<strong>User Tree</strong>
+<p>Look at all the lovely people. There are currently {{ total }} registered users.</p>
+<pre style="font-size:0.85em">{{ tree }}</pre>
+<p></p>
+{% endblock %}

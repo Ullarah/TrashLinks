@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - Submit{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div class="divider"></div>
+<strong>Link Submission</strong>
+{% if session['logged_in'] %}
+<div style="margin:10px 0 10px 0"><span>Try to post something good...</span></div>
+<div class="columns">
+    <div class="column col-9 col-sm-12">
+        <form action="/m/" class="form-horizontal" method="post">
+            <div class="form-group">
+                <div class="col-2 col-sm-12">
+                    <label class="form-label" for="link-title">Creative Title</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                    <input class="form-input" id="link-title" name="link-title" required type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-2 col-sm-12">
+                    <label class="form-label" for="link-url">Link to Page</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                    <input class="form-input" id="link-url" name="link-url" required type="url">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-2 col-sm-12">
+                    <label class="form-label" for="link-tags">Post Tag</label>
+                </div>
+                <div class="col-3 col-sm-12">
+                    <select class="form-select" id="link-tags" name="link-tags" required>
+                        <option hidden></option>
+                        {% for o in options %}
+                        <option>{{ o }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-10 col-sm-12 col-ml-auto">
+                    <input class="btn" type="submit" value="Submit Link"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% else %}
+<div style="margin:10px 0 194px 0"><span>You need to be logged in to post a link!</span></div>
+{% endif %}
+{% endblock %}

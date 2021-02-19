@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - Recovery{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div class="divider"></div>
+<strong>Account Recovery</strong>
+{% if invalid_private_key %}
+<div style="margin:10px 0 10px 0"><span class="label label-error">Invalid username or private key!</span>
+</div>{% endif %}
+{% if short_password %}
+<div style="margin:10px 0 10px 0"><span class="label label-error">Use a better password!</span></div>{% endif %}
+<div class="columns">
+    <div class="column col-9 col-sm-12">
+        <p>That's okay, it happens to the best of us.</p>
+        <form action="/f/" class="form-horizontal" method="post">
+            <div class="form-group">
+                <div class="col-2 col-sm-12">
+                    <label class="form-label" for="username">Username</label>
+                </div>
+                <div class="col-7 col-sm-12">
+                    <input class="form-input" id="username" name="username" required type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-2 col-sm-12">
+                    <label class="form-label" for="password">New Password</label>
+                </div>
+                <div class="col-7 col-sm-12">
+                    <input class="form-input" id="password" name="password" required type="password">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-2 col-sm-12">
+                    <label class="form-label" for="private_key">Private Key</label>
+                </div>
+                <div class="col-7 col-sm-12">
+                    <input class="form-input" id="private_key" name="private_key" required type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-10 col-sm-12 col-ml-auto">
+                    <input class="btn" type="submit" value="Recover Account"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

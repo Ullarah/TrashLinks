@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - Tags{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div class="divider"></div>
+<strong>Tag Usage</strong>
+<p></p>
+<div class="columns">
+    {% for t, c in tag_count.items() %}
+    <div class="column col-2" style="text-transform:capitalize;text-align:center;margin-bottom:15px">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title h6">{{ t }}</div>
+            </div>
+            <div class="card-body">{{ c }}</div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

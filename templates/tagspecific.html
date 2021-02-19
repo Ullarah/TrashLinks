@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - {{ tag }}{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<table class="table table-hover">
+    <tbody>{% for p in posts %}
+    <tr style="font-size:0.85em;">
+        <td style="width:30px;text-align:center">
+            {% if p[10] > 86400 %}
+            <span class="text-gray">
+                <span class="text-gray" style="cursor:pointer;text-decoration:none;font-size:1.05em">▲</span>
+            </span><br/>
+            <span class="text-dark">{{ p[8] }}</span>
+            {% else %}
+            <span class="text-dark">
+                <a class="text-dark" href="/up/{{ p[0] }}" style="text-decoration:none;font-size:1.05em">▲</a>
+            </span><br/>
+            <span class="text-dark">{{ p[8] }}</span>
+            {% endif %}
+        </td>
+        <td style="width:90px;text-align:center">
+            <span style="padding-left:7px"></span>
+            <a class="text-dark" href="/g/{{ p[7] }}" style="text-decoration:none">
+                <span class="label">{{ p[7] }}</span>
+            </a>
+        </td>
+        <td nowrap>
+            <a class="text-primary" href="{{ p[2] }}" style="text-decoration:none">
+                <span class="tooltip tooltip-left" data-tooltip="{{ p[3] }}"><strong>{{ p[1] }}</strong></span>
+            </a>
+            <br>
+            <span>Posted by
+                    <a class="text-dark" href="/u/{{ p[4] }}" style="text-decoration:none">{{ p[4] }}</a>
+                    <span class="tooltip tooltip-bottom" data-tooltip="{{ p[5] }}">{{ p[6] }}</span> |
+                    <a class="text-dark" href="https://archive.md/{{ p[2] }}" style="text-decoration:none">archive</a>
+                    {% if p[4] == session['username'] %}| <a class="text-dark" href="/m/edit/{{ p[0] }}"
+                                                                style="text-decoration:none">edit</a> |
+                    <a class="text-dark" href="/rm/{{ p[0] }}" style="text-decoration:none">remove</a>{% endif %}
+                </span>
+            <span style="float:right">
+                    <small><i>
+                        <a href="#">report</a>
+                    </i></small>
+                </span>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% block pagenav %}
+<div class="text-right">
+    <a class="btn btn-link
+       {% if page.page == 1 %}disabled{% endif %}"
+       href="{{ url_for('index', p=page.prev_num) }}"> Prev
+    </a>
+    <a class="btn btn-link
+       {% if page.page == page.pages %}disabled{% endif %}"
+       href="{{ url_for('index', p=page.next_num) }}"> Next
+    </a>
+</div>
+<span style="padding-left:10px" class="text-gray">Page {{ page.page }} of {{ page.pages }}</span>
+{% endblock %}

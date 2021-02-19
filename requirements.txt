@@ -1,0 +1,11 @@
+Flask
+MarkupSafe
+bcrypt
+tldextract
+better-profanity
+feedgen
+SQLAlchemy
+random-word
+PyYaml
+treelib
+requests
