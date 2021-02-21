@@ -1,7 +1,9 @@
 import datetime
 import os
+import re
 import time
 from base64 import b64encode
+from urllib.parse import urlparse
 
 import requests
 from better_profanity import profanity
@@ -83,6 +85,21 @@ def list_of_tags():
         'naughty', 'eyecandy', 'gaming', 'hardware', 'news', 'sad', 'happy', 'instahoe', 'image', 'video', 'listen',
         'wtf', 'art', 'retro', 'geek', 'cool', 'play', 'funny', 'classic', 'lame', 'gross', 'sport', 'meme', 'serious'
     ]
+
+
+def check_for_valid_tags(post_tags):
+    result = post_tags.replace(" ", "") in list_of_tags()
+    return True if result and len(post_tags) <= 8 else False
+
+
+def check_for_valid_url(post_url):
+    result = all([urlparse(post_url).scheme in ["http", "https"], urlparse(post_url).netloc, urlparse(post_url).path])
+    return True if result and len(post_url) >= 12 else False
+
+
+def check_for_valid_title(post_title):
+    result = re.fullmatch(re.compile(r"[A-Za-z0-9+=\-_()#!?,.\s]+"), post_title)
+    return True if result and len(post_title) >= 16 else False
 
 
 def post_reformat(post):

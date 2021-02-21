@@ -5,6 +5,9 @@
 {% block content %}
 <div class="divider"></div>
 <strong>Link Submission</strong>
+{% if error == 'title' %}<div style="margin:10px 0 10px 0"><span class="label label-error">Title too short (>16) or invalid characters used.</span></div>{% endif %}
+{% if error == 'url' %}<div style="margin:10px 0 10px 0"><span class="label label-error">That doesn't look like a valid URL.</span></div>{% endif %}
+{% if error == 'tags' %}<div style="margin:10px 0 10px 0"><span class="label label-error">Come on, use a tag from the list provided.</span></div>{% endif %}
 {% if session['logged_in'] %}
 <div style="margin:10px 0 10px 0"><span>Try to post something good...</span></div>
 <div class="columns">
@@ -15,7 +18,7 @@
                     <label class="form-label" for="link-title">Creative Title</label>
                 </div>
                 <div class="col-9 col-sm-12">
-                    <input class="form-input" id="link-title" name="link-title" required type="text">
+                    <input class="form-input" id="link-title" name="link-title" required type="text" maxlength="120" value="{{ title }}">
                 </div>
             </div>
             <div class="form-group">
@@ -23,7 +26,7 @@
                     <label class="form-label" for="link-url">Link to Page</label>
                 </div>
                 <div class="col-9 col-sm-12">
-                    <input class="form-input" id="link-url" name="link-url" required type="url">
+                    <input class="form-input" id="link-url" name="link-url" required type="url" value="{{ url }}">
                 </div>
             </div>
             <div class="form-group">
@@ -34,7 +37,11 @@
                     <select class="form-select" id="link-tags" name="link-tags" required>
                         <option hidden></option>
                         {% for o in options %}
-                        <option>{{ o }}</option>
+                        {% if o == tags %}
+                            <option selected>{{ o }}</option>
+                        {% else %}
+                            <option>{{ o }}</option>
+                        {% endif %}
                         {% endfor %}
                     </select>
                 </div>
