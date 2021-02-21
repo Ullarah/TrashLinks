@@ -3,12 +3,17 @@ import os
 import re
 import time
 from base64 import b64encode
+from json import loads
 from urllib.parse import urlparse
 
 import requests
 from flask import session
 from markupsafe import Markup
 from tldextract import tldextract
+
+
+def get_config_value(value):
+    return loads(open('data/config.json', 'r').read())[value]
 
 
 def init_session():
@@ -26,8 +31,9 @@ def generate_code(length=8):
 
 def alert_telegram_channel(html_text):
     try:
-        chat_id = '-1001174383932'
-        bot_key = '1693414368:AAEYx_tdcUaPrzxivTPFX107wnXG0iqjvts'
+        telegram_config = get_config_value('telegram')
+        chat_id = telegram_config['chat_id']
+        bot_key = telegram_config['bot_key']
 
         url = f'https://api.telegram.org/bot{bot_key}/sendMessage'
         data = {'chat_id': chat_id, 'parse_mode': 'HTML', 'text': html_text}

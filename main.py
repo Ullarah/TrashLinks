@@ -7,13 +7,14 @@ from flask_sqlalchemy import SQLAlchemy
 from waitress import serve
 
 from core import database
+from core.function import get_config_value
 from core.router import router
 
 server = Flask(__name__)
 
 server.register_blueprint(router)
 
-server.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+server.config['SQLALCHEMY_DATABASE_URI'] = get_config_value('database')
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 server.secret_key = os.urandom(32)
@@ -27,6 +28,8 @@ def page_not_found(error):
 
 
 if __name__ == '__main__':
+    print(f"TrashLinks {get_config_value('version')}")
+
     profanity.load_censor_words()
     database.init()
 

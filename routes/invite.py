@@ -56,7 +56,7 @@ def route(code):
                                user=escape(request.form['username'].lower()))
     elif request.method == 'GET':
         if code is None:
-            return redirect(url_for('index'))
+            return redirect(url_for('route.index'))
         user_invite = get_user_by_invite_code(code)
         if user_invite is not None:
             return render_template('invite.html',
@@ -68,4 +68,4 @@ def route(code):
             return render_template('invite.html',
                                    invalid_invite_code=True)
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('route.index'))

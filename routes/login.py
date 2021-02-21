@@ -22,4 +22,4 @@ def route():
     elif request.method == 'GET':
         return render_template('login.html')
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('route.index'))

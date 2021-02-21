@@ -47,7 +47,7 @@ def login():
 @router.route('/o/')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('route.index'))
 
 
 @router.route('/i/')

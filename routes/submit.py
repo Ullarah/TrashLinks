@@ -15,7 +15,7 @@ def post_check(title, url, tags):
         return False, 'url'
     if not check_for_valid_tags(escape(tags)):
         return False, 'tags'
-    return True
+    return True, 'nothing'
 
 
 def route(post_id):
@@ -24,13 +24,13 @@ def route(post_id):
         if request.method == 'POST':
             user = escape(session['username'])
             title, url, tags = request.form['link-title'], request.form['link-url'], request.form['link-tags']
-            is_post_valid = post_check(title, url, tags)
-            if is_post_valid[0]:
+            is_post_valid, error_tag = post_check(title, url, tags)
+            if is_post_valid:
                 insert_post(user, escape(title), escape(url), escape(tags))
                 alert_telegram_channel(f'<b>[{tags}] {title}</b>\n<i>Posted by {user}</i>\n<a href="{url}">Link</a>')
-                return redirect(url_for('index'))
+                return redirect(url_for('route.index'))
             else:
-                return render_template('submit.html', options=list_of_tags(), error=is_post_valid[1],
+                return render_template('submit.html', options=list_of_tags(), error=error_tag,
                                        title=title, url=url, tags=tags)
         else:
             return render_template('submit.html', options=list_of_tags())
@@ -41,7 +41,7 @@ def route(post_id):
                 is_post_valid = post_check(title, url, tags)
                 if is_post_valid[0]:
                     edit_post(post_id, escape(title), escape(url), escape(tags))
-                    return redirect(url_for('index'))
+                    return redirect(url_for('route.index'))
                 else:
                     return render_template('submit.html', options=list_of_tags(), error=is_post_valid[1],
                                            title=title, url=url, tags=tags)
@@ -53,4 +53,4 @@ def route(post_id):
                                        url=post.url, tag=post.tags, no_ownership=no_ownership,
                                        restricted_edit=restricted_edit)
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('route.index'))

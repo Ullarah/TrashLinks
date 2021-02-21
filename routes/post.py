@@ -30,4 +30,4 @@ def route(action, post_id):
             if action == 'report':
                 if not check_already_report(post_id, escape(session['username'])):
                     add_report_to_post(post_id, escape(session['username']))
-    return redirect(url_for('index'))
+    return redirect(url_for('route.index'))

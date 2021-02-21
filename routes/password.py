@@ -20,4 +20,4 @@ def route():
                 change_user_details(username, password, options)
                 session.clear()
                 return render_template('private.html', password_changed=True, type=f'Password Changed for {username}')
-    return redirect(url_for('index'))
+    return redirect(url_for('route.index'))

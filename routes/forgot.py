@@ -24,7 +24,7 @@ def route():
             return render_template('forgot.html', invalid_private_key=True)
     elif request.method == 'GET':
         if session['logged_in']:
-            return redirect(url_for('index'))
+            return redirect(url_for('route.index'))
         return render_template('forgot.html')
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('route.index'))

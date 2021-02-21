@@ -1,4 +1,4 @@
 # Project exclude paths
 /venv/
 /.idea/
-database.db
+data/database.db
