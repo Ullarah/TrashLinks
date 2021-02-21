@@ -3,9 +3,9 @@ import time
 from flask import redirect, render_template, request, session, url_for
 from markupsafe import escape, Markup
 
-from app import alert_telegram_channel, check_for_valid_title, check_for_valid_url,\
+from core.function import alert_telegram_channel, check_for_valid_title, check_for_valid_url,\
     check_for_valid_tags, list_of_tags, init_session
-from database import insert_post, edit_post, get_post
+from core.database import insert_post, edit_post, get_post
 
 
 def post_check(title, url, tags):

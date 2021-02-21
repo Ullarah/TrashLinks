@@ -4,8 +4,8 @@ from flask import redirect, render_template, request, url_for
 from markupsafe import escape
 from random_word import RandomWords
 
-from app import generate_code, init_session
-from database import does_user_exist, get_user_by_invite_code, insert_user
+from core.function import generate_code, init_session
+from core.database import does_user_exist, get_user_by_invite_code, insert_user
 
 
 def route(code):

@@ -9,7 +9,7 @@
 </div>
 <div class="columns">
     <div class="column col-9 col-sm-12">
-        <form action="{{ url_for('search') }}" class="form-horizontal" method="get">
+        <form action="{{ url_for('route.search') }}" class="form-horizontal" method="get">
             <div class="form-group">
                 <div class="col-2 col-sm-12">
                     <label class="form-label" for="q">Search Query</label>
@@ -89,11 +89,11 @@
 <div class="text-right">
     <a class="btn btn-link
        {% if page.page == 1 %}disabled{% endif %}"
-       href="{{ url_for('search', p=page.prev_num, q=query) }}"> Prev
+       href="{{ url_for('route.search', p=page.prev_num, q=query) }}"> Prev
     </a>
     <a class="btn btn-link
        {% if page.page == page.pages %}disabled{% endif %}"
-       href="{{ url_for('search', p=page.next_num, q=query) }}"> Next
+       href="{{ url_for('route.search', p=page.next_num, q=query) }}"> Next
     </a>
 </div>
 <span style="padding-left:10px" class="text-gray">Page {{ page.page }} of {{ page.pages }}</span>

@@ -1,7 +1,7 @@
 from flask import render_template, request
 
-from app import post_reformat, init_session
-from database import search_for_posts
+from core.function import post_reformat, init_session
+from core.database import search_for_posts
 
 
 def route():

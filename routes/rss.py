@@ -6,8 +6,8 @@ from feedgen.feed import FeedGenerator
 from markupsafe import Markup
 
 
-from app import init_session
-from database import get_all_posts_for_rss, get_all_user_posts_for_rss
+from core.function import init_session
+from core.database import get_all_posts_for_rss, get_all_user_posts_for_rss
 
 
 def route(user):

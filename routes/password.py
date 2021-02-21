@@ -2,8 +2,8 @@ import bcrypt
 from flask import render_template, redirect, request, session, url_for
 from markupsafe import escape
 
-from app import init_session
-from database import get_all_user_details, change_user_details
+from core.function import init_session
+from core.database import get_all_user_details, change_user_details
 
 
 def route():

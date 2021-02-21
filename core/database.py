@@ -2,7 +2,7 @@ import time
 
 from sqlalchemy import desc
 
-from app import db, list_of_tags
+from main import db
 
 
 def insert_user(username, password, private_key, invited_by, invite_code):
@@ -102,6 +102,7 @@ def get_all_user_invitee():
 
 
 def get_tag_count():
+    from core.function import list_of_tags
     count = {}
     for t in list_of_tags():
         count[t] = Post.query.with_entities(Post.tags).filter_by(tags=t).count()

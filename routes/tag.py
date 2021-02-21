@@ -1,7 +1,7 @@
 from flask import render_template, request
 
-from app import post_reformat, init_session
-from database import get_all_posts_with_tag
+from core.function import post_reformat, init_session
+from core.database import get_all_posts_with_tag
 
 
 def route(tag):

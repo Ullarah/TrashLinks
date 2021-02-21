@@ -53,11 +53,11 @@
 <div class="text-right">
     <a class="btn btn-link
        {% if page.page == 1 %}disabled{% endif %}"
-       href="{{ url_for('index', p=page.prev_num) }}"> Prev
+       href="{{ url_for('route.index', p=page.prev_num) }}"> Prev
     </a>
     <a class="btn btn-link
        {% if page.page == page.pages %}disabled{% endif %}"
-       href="{{ url_for('index', p=page.next_num) }}"> Next
+       href="{{ url_for('route.index', p=page.next_num) }}"> Next
     </a>
 </div>
 <span style="padding-left:10px" class="text-gray">Page {{ page.page }} of {{ page.pages }}</span>

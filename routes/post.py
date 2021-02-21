@@ -3,8 +3,8 @@ import time
 from flask import redirect, session, url_for
 from markupsafe import escape
 
-from app import init_session
-from database import get_post, delete_post, add_vote_to_post, add_report_to_post, get_votes_on_post, \
+from core.function import init_session
+from core.database import get_post, delete_post, add_vote_to_post, add_report_to_post, get_votes_on_post, \
     get_datetime_on_post, get_reports_on_post
 
 

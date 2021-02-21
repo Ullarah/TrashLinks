@@ -4,9 +4,9 @@ from flask import render_template, session
 from markupsafe import escape
 from treelib import Tree
 
-from app import init_session, post_reformat
-from database import get_all_user_details, get_user_post_points, get_user_post_count, get_all_user_invitee, \
-    get_all_top_posts, get_all_recent_updated_posts
+from core.function import init_session, post_reformat
+from core.database import get_all_user_details, get_user_post_points, get_user_post_count,\
+    get_all_user_invitee, get_all_top_posts, get_all_recent_updated_posts
 
 
 def route(viewuser):
