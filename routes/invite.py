@@ -11,36 +11,31 @@ from core.database import does_user_exist, get_user_by_invite_code, insert_user
 def route(code):
     init_session()
     if request.method == 'POST':
+        user_invite = get_user_by_invite_code(code)
         if does_user_exist(request.form['username'].lower()):
-            user_invite = get_user_by_invite_code(code)
             return render_template('invite.html',
                                    invite_from=user_invite.username,
                                    invite_code=code,
                                    user_exists=True)
         if len(request.form['username'].lower()) < 4:
-            user_invite = get_user_by_invite_code(code)
             return render_template('invite.html',
                                    invite_from=user_invite.username,
                                    invite_code=code,
                                    less_than_four=True)
         if len(request.form['username'].lower()) > 16:
-            user_invite = get_user_by_invite_code(code)
             return render_template('invite.html',
                                    invite_from=user_invite.username,
                                    invite_code=code,
                                    more_than_sixteen=True)
         if len(request.form['password'].lower()) < 8:
-            user_invite = get_user_by_invite_code(code)
             return render_template('invite.html',
                                    invite_from=user_invite.username,
                                    invite_code=code,
                                    short_password=True)
         if request.form['username'].lower() in [
-            'admin', 'administrator', 'root', 'system', 'qanon', '4chan', 'quisquiliae', 'user', 'username'
-                                                                                                 'hitler', 'jesus',
-            'stalin', 'trump', 'phil', 'overseer', 'rocketotter'
+            'admin', 'administrator', 'root', 'system', 'qanon', '4chan', 'quisquiliae', 'user', 'username',
+            'hitler', 'jesus', 'stalin', 'trump', 'phil', 'overseer', 'rocketotter'
         ] or profanity.contains_profanity(request.form['username'].lower()):
-            user_invite = get_user_by_invite_code(code)
             return render_template('invite.html',
                                    invite_from=user_invite.username,
                                    invite_code=code,

@@ -1,8 +1,10 @@
+import argparse
 import os
 
 from better_profanity import profanity
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from waitress import serve
 
 from core import database
 from core.router import router
@@ -27,6 +29,17 @@ def page_not_found(error):
 if __name__ == '__main__':
     profanity.load_censor_words()
     database.init()
-    server.run(debug=True, host="127.0.0.1", port="3000")
-    # server.run(debug=True, host="0.0.0.0", port="3000")
-    # serve(server, host='0.0.0.0', port=3000, url_scheme='https', threads=10)
+
+    parser = argparse.ArgumentParser(prog='trash-links')
+
+    parser.add_argument('-d', type=bool, choices=[True, False], default=False, dest='debug', help='debug mode')
+    parser.add_argument('-o', type=str, default='0.0.0.0', dest='host', help='serving ip address')
+    parser.add_argument('-p', type=int, default=3000, dest='port', help='port to use')
+    parser.add_argument('-t', type=int, default=10, dest='threads', help='number of server threads')
+
+    args = parser.parse_args()
+
+    if args.debug:
+        server.run(debug=True, host=args.host, port=args.port)
+    else:
+        serve(server, host=args.host, port=args.port, url_scheme='https', threads=args.threads)

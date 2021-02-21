@@ -6,17 +6,18 @@ from main import db
 
 
 def insert_user(username, password, private_key, invited_by, invite_code):
-    db.session.add(User(
-        username=username,
-        password=password,
-        private_key=private_key,
-        about_me='',
-        options='',
-        last_login=int(time.time()),
-        invited_by=invited_by,
-        invite_code=invite_code
-    ))
-    db.session.commit()
+    if not does_user_exist(username):
+        db.session.add(User(
+            username=username,
+            password=password,
+            private_key=private_key,
+            about_me='',
+            options='',
+            last_login=int(time.time()),
+            invited_by=invited_by,
+            invite_code=invite_code
+        ))
+        db.session.commit()
 
 
 def change_user_details(username, password, options):
