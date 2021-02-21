@@ -14,7 +14,7 @@ server = Flask(__name__)
 
 server.register_blueprint(router)
 
-server.config['SQLALCHEMY_DATABASE_URI'] = get_config_value('database')
+server.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{get_config_value('database')}"
 server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 server.secret_key = os.urandom(32)

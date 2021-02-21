@@ -1,7 +1,9 @@
+import os
 import time
 
 from sqlalchemy import desc
 
+from core.function import get_config_value
 from main import db
 
 
@@ -214,5 +216,11 @@ class Post(db.Model):
 
 
 def init():
-    db.create_all()
-    db.session.commit()
+    if not os.path.isfile(f"/{get_config_value('database')}"):
+        db.create_all()
+        db.session.commit()
+        db_superuser = get_config_value('superuser')
+        su_username = db_superuser['username']
+        su_invite_code = db_superuser['invite_code']
+        insert_user(su_username, '0', '0', 'overseer', su_invite_code)
+        db.session.commit()

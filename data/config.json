@@ -1,0 +1,12 @@
+{
+  "version": "2021.02.21.c",
+  "database": "data/database.db",
+  "telegram": {
+    "chat_id": "0",
+    "bot_key": "0"
+  },
+  "superuser": {
+    "username": "overseer",
+    "invite_code": "IDt7wDFuNPD0PdAdOXnd5AWnT3JTMEVOqcy5Zo4aU"
+  }
+}
