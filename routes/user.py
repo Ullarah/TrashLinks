@@ -34,11 +34,10 @@ def route(viewuser):
                                num_posts=len(top_posts), top_posts=top_posts, recent_posts=recent_posts)
     else:
         tree = Tree()
-        tree.create_node('overseer', 'overseer')
-        invitees = get_all_user_invitee()
-        count = 1
-        for u, i in invitees:
+        tree.create_node(tag='overseer', identifier='overseer')
+        count = 0
+        for u, i in get_all_user_invitee():
             if u != 'overseer':
+                tree.create_node(tag=u, identifier=u, parent=i)
                 count += 1
-                tree.create_node(u, parent=i)
         return render_template('user_tree.html', viewuser=escape(viewuser), tree=tree.show(stdout=False), total=count)

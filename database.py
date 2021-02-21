@@ -37,7 +37,7 @@ def does_user_exist(username):
 
 
 def add_vote_to_post(post_id, username):
-    post = Post.query.with_entities(Post.votes, Post.updated).filter_by(id=post_id).first()
+    post = Post.query.filter_by(id=post_id).first()
     post.votes = f"{post.votes};{username}"
     post.updated = int(time.time())
     db.session.commit()
@@ -52,7 +52,7 @@ def get_datetime_on_post(post_id):
 
 
 def add_report_to_post(post_id, username):
-    post = Post.query.with_entities(Post.reports).filter_by(id=post_id).first()
+    post = Post.query.filter_by(id=post_id).first()
     post.reports = f"{post.reports};{username}"
     db.session.commit()
 

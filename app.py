@@ -9,6 +9,7 @@ from flask import Flask, redirect, render_template, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from markupsafe import Markup
 from tldextract import tldextract
+from waitress import serve
 
 import database
 
@@ -223,6 +224,6 @@ def page_not_found(error):
 if __name__ == '__main__':
     profanity.load_censor_words()
     database.init()
-    # app.run(debug=True, host="127.0.0.1", port="3000")
-    app.run(debug=True, host="0.0.0.0", port="3000")
+    app.run(debug=True, host="127.0.0.1", port="3000")
+    # app.run(debug=True, host="0.0.0.0", port="3000")
     # serve(app, host='0.0.0.0', port=3000, url_scheme='https', threads=10)

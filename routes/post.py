@@ -1,3 +1,5 @@
+import time
+
 from flask import redirect, session, url_for
 from markupsafe import escape
 
@@ -7,7 +9,8 @@ from database import get_post, delete_post, add_vote_to_post, add_report_to_post
 
 
 def check_already_vote_or_old(post_id, username):
-    return True if username in get_votes_on_post(post_id) or get_datetime_on_post(post_id) > 86400 else False
+    seconds_since_post = int(time.time() - get_datetime_on_post(post_id))
+    return True if username in get_votes_on_post(post_id) or seconds_since_post > 86400 else False
 
 
 def check_already_report(post_id, username):

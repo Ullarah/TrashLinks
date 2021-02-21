@@ -9,3 +9,5 @@ random-word
 PyYaml
 treelib
 requests
+waitress
+wheel
