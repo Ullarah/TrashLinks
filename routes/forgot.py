@@ -15,16 +15,17 @@ def route():
             if bcrypt.checkpw(escape(request.form['private_key']).encode('utf-8'), user_login.private_key):
                 password = request.form['password']
                 if len(password) < 8:
-                    return render_template('forgot.html', short_password=True)
+                    return render_template(f'{session["view_mode"]}/forgot.html', short_password=True)
                 password = bcrypt.hashpw(escape(password).encode('utf-8'), bcrypt.gensalt(16))
                 options = ';'
                 change_user_details(user_login.username, password, options)
-                return render_template('private.html', user_recovered=True, type=f'Account recovered for {username}')
+                return render_template(f'{session["view_mode"]}/private.html',
+                                       user_recovered=True, type=f'Account recovered for {username}')
         else:
-            return render_template('forgot.html', invalid_private_key=True)
+            return render_template(f'{session["view_mode"]}/forgot.html', invalid_private_key=True)
     elif request.method == 'GET':
         if session['logged_in']:
             return redirect(url_for('route.index'))
-        return render_template('forgot.html')
+        return render_template(f'{session["view_mode"]}/forgot.html')
     else:
         return redirect(url_for('route.index'))

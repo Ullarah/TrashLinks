@@ -17,12 +17,13 @@ def get_config_value(value):
 
 
 def init_session():
-    for s in ['logged_in', 'username', 'current_page', 'dark_mode']:
+    for s in ['logged_in', 'username', 'current_page', 'dark_mode', 'view_mode']:
         if s not in session:
             session['logged_in'] = False
             session['username'] = None
             session['current_page'] = 0
             session['dark_mode'] = False
+            session['view_mode'] = 'desktop'
 
 
 def generate_code(length=8):

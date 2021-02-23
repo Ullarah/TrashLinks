@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'desktop/base.html' %}
 
 {% block header %}<h1>{% block title %}Quisquiliae - Recent{% endblock %}</h1>{% endblock %}
 
 {% block content %}
 <div class="divider"></div>
-<strong>Top voted posts</strong>
+<strong>Recently edited/upvoted posts</strong>
 <table class="table table-hover">
     <tbody>{% for p in posts %}
     <tr style="font-size:0.85em;">
@@ -36,6 +36,14 @@
                     <a class="text-dark" href="/u/{{ p[4] }}" style="text-decoration:none">{{ p[4] }}</a>
                     <span class="tooltip tooltip-bottom" data-tooltip="{{ p[5] }}">{{ p[6] }}</span> |
                     <a class="text-dark" href="#" style="text-decoration:none">archive</a>
+                    {% if p[4] == session['username'] %}| <a class="text-dark" href="/m/edit/{{ p[0] }}"
+                                                                style="text-decoration:none">edit</a> |
+                    <a class="text-dark" href="#" style="text-decoration:none">remove</a>{% endif %}
+                </span>
+            <span style="float:right">
+                    <small><i>
+                        <a href="#">report</a>
+                    </i></small>
                 </span>
         </td>
     </tr>

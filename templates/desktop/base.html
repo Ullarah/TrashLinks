@@ -4,8 +4,8 @@
     <title>{% block title %}{% endblock %}</title>
     <link href="{{ url_for('static', filename='css/minireset.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/spectre.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/spectre-icons.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/trash.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/trash-desktop.css') }}" rel="stylesheet">
 </head>
 <body>
 <header class="navbar">
@@ -36,6 +36,7 @@
         <a class="btn btn-link" href="{{ url_for('route.tags') }}">Tags</a>
         <a class="btn btn-link" href="{{ url_for('route.domains') }}">Domains</a>
         <a class="btn btn-link" href="{{ url_for('route.about') }}">About</a>
+        <a class="btn btn-link" href="{{ url_for('route.change_view') }}"><strong>Mobile</strong></a>
     </section>
 </footer>
 </body>

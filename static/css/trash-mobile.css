@@ -1,0 +1,17 @@
+body{
+    margin: 0 auto;
+    font-size: 1em !important;
+}
+.thin{
+    margin-top: 10px;
+    border: none;
+    height: 1px;
+    color: #ccc;
+    background-color: #ccc;
+}
+.truncate {
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

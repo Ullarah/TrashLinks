@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'mobile/base.html' %}
 
 {% block header %}<h1>{% block title %}Quisquiliae - Login{% endblock %}</h1>{% endblock %}
 
@@ -13,7 +13,7 @@
 </div>{% endif %}
 <div class="columns">
     <div class="column col-9 col-sm-12">
-        <p>This is an invitation only site, so get somebody to invite you.<br />
+        <p>This is an invitation only site<br>so get somebody to invite you.<br />
             If you don't know who is registered you can find out <a href="/u/">here</a>, and have them invite you.</p>
         <form action="/l/" class="form-horizontal" method="post">
             <div class="form-group">

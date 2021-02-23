@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'mobile/base.html' %}
 
 {% block header %}<h1>{% block title %}Quisquiliae - Tags{% endblock %}</h1>{% endblock %}
 
@@ -8,7 +8,7 @@
 <p></p>
 <div class="columns">
     {% for t, c in tag_count.items() %}
-    <div class="column col-2" style="text-transform:capitalize;text-align:center;margin-bottom:15px">
+    <div class="column col-4" style="text-transform:capitalize;text-align:center;margin-bottom:15px">
         <div class="card">
             <div class="card-header">
                 <div class="card-title h6">{{ t }}</div>

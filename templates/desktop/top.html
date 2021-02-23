@@ -1,8 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'desktop/base.html' %}
 
-{% block header %}<h1>{% block title %}Quisquiliae - {{ tag }}{% endblock %}</h1>{% endblock %}
+{% block header %}<h1>{% block title %}Quisquiliae - Recent{% endblock %}</h1>{% endblock %}
 
 {% block content %}
+<div class="divider"></div>
+<strong>Top voted posts</strong>
 <table class="table table-hover">
     <tbody>{% for p in posts %}
     <tr style="font-size:0.85em;">
@@ -33,32 +35,11 @@
             <span>Posted by
                     <a class="text-dark" href="/u/{{ p[4] }}" style="text-decoration:none">{{ p[4] }}</a>
                     <span class="tooltip tooltip-bottom" data-tooltip="{{ p[5] }}">{{ p[6] }}</span> |
-                    <a class="text-dark" href="https://archive.md/{{ p[2] }}" style="text-decoration:none">archive</a>
-                    {% if p[4] == session['username'] %}| <a class="text-dark" href="/m/edit/{{ p[0] }}"
-                                                                style="text-decoration:none">edit</a> |
-                    <a class="text-dark" href="/rm/{{ p[0] }}" style="text-decoration:none">remove</a>{% endif %}
-                </span>
-            <span style="float:right">
-                    <small><i>
-                        <a href="#">report</a>
-                    </i></small>
+                    <a class="text-dark" href="#" style="text-decoration:none">archive</a>
                 </span>
         </td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
-{% endblock %}
-{% block pagenav %}
-<div class="text-right">
-    <a class="btn btn-link
-       {% if page.page == 1 %}disabled{% endif %}"
-       href="{{ url_for('route.index', p=page.prev_num) }}"> Prev
-    </a>
-    <a class="btn btn-link
-       {% if page.page == page.pages %}disabled{% endif %}"
-       href="{{ url_for('route.index', p=page.next_num) }}"> Next
-    </a>
-</div>
-<span style="padding-left:10px" class="text-gray">Page {{ page.page }} of {{ page.pages }}</span>
 {% endblock %}

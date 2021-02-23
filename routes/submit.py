@@ -30,26 +30,27 @@ def route(post_id):
                 alert_telegram_channel(f'<b>[{tags}] {title}</b>\n<i>Posted by {user}</i>\n<a href="{url}">Link</a>')
                 return redirect(url_for('route.index'))
             else:
-                return render_template('submit.html', options=list_of_tags(), error=error_tag,
+                return render_template(f'{session["view_mode"]}/submit.html', options=list_of_tags(), error=error_tag,
                                        title=title, url=url, tags=tags)
         else:
-            return render_template('submit.html', options=list_of_tags())
+            return render_template(f'{session["view_mode"]}/submit.html', options=list_of_tags())
     else:
         if isinstance(int(post_id), int):
             if request.method == 'POST':
                 title, url, tags = request.form['link-title'], request.form['link-url'], request.form['link-tags']
-                is_post_valid = post_check(title, url, tags)
-                if is_post_valid[0]:
+                is_post_valid, error_tag = post_check(title, url, tags)
+                if is_post_valid:
                     edit_post(post_id, escape(title), escape(url), escape(tags))
                     return redirect(url_for('route.index'))
                 else:
-                    return render_template('submit.html', options=list_of_tags(), error=is_post_valid[1],
-                                           title=title, url=url, tags=tags)
+                    return render_template(f'{session["view_mode"]}/submit.html', options=list_of_tags(),
+                                           error=error_tag, title=title, url=url, tags=tags)
             else:
                 post = get_post(post_id)
                 no_ownership = True if post.username != escape(session['username']) else False
                 restricted_edit = True if (int(time.time()) - post.datetime) > 86400 else False
-                return render_template('edit.html', options=list_of_tags(), id=post.id, title=Markup(post.title),
+                return render_template(f'{session["view_mode"]}/edit.html', options=list_of_tags(),
+                                       id=post.id, title=Markup(post.title),
                                        url=post.url, tag=post.tags, no_ownership=no_ownership,
                                        restricted_edit=restricted_edit)
         else:

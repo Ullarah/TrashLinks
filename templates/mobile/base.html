@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ url_for('static', filename='css/minireset.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/spectre.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/trash-mobile.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header class="navbar">
+    <section class="navbar-section">
+        <a class="btn btn-link" href="{{ url_for('route.index') }}"><strong>Quisquiliae</strong></a>
+        {% if session['logged_in'] %}<a class="btn btn-link" href="{{ url_for('route.submit') }}"><i class="bi-plus-square" style="font-size: 1.5em"></i></a>{% endif %}
+        <a class="btn btn-link" href="{{ url_for('route.recent') }}"><i class="bi-megaphone" style="font-size: 1.5em"></i></a>
+        <a class="btn btn-link" href="{{ url_for('route.top') }}"><i class="bi-graph-up" style="font-size: 1.5em"></i></a>
+        <a class="btn btn-link" href="{{ url_for('route.search') }}"><i class="bi-search" style="font-size: 1.5em"></i></a>
+    </section>
+    <section class="navbar-section">{% if session['logged_in'] %}
+        <a class="btn btn-link" href="{{ url_for('route.user') }}{{ session['username'] }}"><i class="bi-person-square" style="font-size: 1.5em"></i></a>
+        <a class="btn btn-link" href="{{ url_for('route.logout') }}"><i class="bi-door-closed" style="font-size: 1.5em"></i></a>{% else %}
+        <a class="btn btn-link" href="{{ url_for('route.login') }}" style="float:right;"><i class="bi-door-open" style="font-size: 1.5em"></i></a>{% endif %}
+    </section>
+</header>
+<div class="container" id="content">
+    <section class="content">
+        {% block content %}{% endblock %}
+    </section>
+</div>
+<footer style="margin-bottom:25px" class="navbar">
+    <section class="navbar-section">{% block pagenav %}{% endblock %}</section>
+    <section class="navbar-section text-left">
+        <a class="btn btn-link" href="{{ url_for('route.subscribe') }}"><i class="bi-rss" style="font-size: 1.5em"></i></a>
+        <a class="btn btn-link" href="{{ url_for('route.tags') }}"><i class="bi-tag" style="font-size: 1.5em"></i></a>
+        <a class="btn btn-link" href="{{ url_for('route.domains') }}"><i class="bi-filter" style="font-size: 1.5em"></i></a>
+        <a class="btn btn-link" href="{{ url_for('route.about') }}"><i class="bi-info-square" style="font-size: 1.5em"></i></a>
+        <a class="btn btn-link" href="{{ url_for('route.change_view') }}"><strong><i class="bi-laptop" style="font-size: 1.5em"></i></strong></a>
+    </section>
+</footer>
+</body>
+</html>

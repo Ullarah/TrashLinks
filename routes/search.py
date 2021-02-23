@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, session
 
 from core.function import post_reformat, init_session
 from core.database import search_for_posts
@@ -10,10 +10,11 @@ def route():
         if 'q' in request.args:
             query = request.args.get('q', 1, type=str)
             if not query.strip() or query.isspace():
-                return render_template('search.html', empty_query=True)
+                return render_template(f'{session["view_mode"]}/search.html', empty_query=True)
         else:
-            return render_template('search.html')
+            return render_template(f'{session["view_mode"]}/search.html')
         term = 'title'
+        search_query = query
         if query.startswith('!tag'):
             term = 'tag'
             query = query.replace('!tag ', '', 1)
@@ -29,9 +30,10 @@ def route():
         if len(page_info.items) > 0:
             for post in page_info.items:
                 list_of_posts.append(post_reformat(post))
-            return render_template('search.html', is_valid_search=True, query=query, search_count=page_total,
+            return render_template(f'{session["view_mode"]}/search.html',
+                                   is_valid_search=True, query=search_query, search_count=page_total,
                                    page=page_info, posts=list_of_posts)
         else:
-            return render_template('search.html', nothing_found=True)
+            return render_template(f'{session["view_mode"]}/search.html', nothing_found=True)
     else:
-        return render_template('search.html')
+        return render_template(f'{session["view_mode"]}/search.html')

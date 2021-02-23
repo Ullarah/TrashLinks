@@ -1,0 +1,22 @@
+{% extends 'desktop/base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - Private{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div class="divider"></div>
+<strong>{{ type }}</strong>
+{% if password_changed %}
+<div style="margin:10px 0 10px 0"><span class="label label-success">Password has been successfully changed!</span>
+</div>{% endif %}
+{% if user_created %}
+<div style="margin:10px 0 10px 0"><span class="label label-success">User {{ user }} successfully created!</span></div>
+<p></p>
+<div style="margin:10px 0 10px 0"><span>This is your private key, do not lose it.<br/>It's your only way to recover your account.</span>
+</div>
+<div style="margin:15px 0 15px 15px"><span><strong>{{ private_key }}</strong></span></div>
+<div style="margin:10px 0 10px 0"><span>This key will NOT be shown again.</span></div>
+{% endif %}
+{% if user_recovered %}
+<div style="margin:10px 0 10px 0"><span class="label label-success">User {{ user }} successfully recovered!</span>
+</div>{% endif %}
+{% endblock %}

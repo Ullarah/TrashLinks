@@ -1,5 +1,7 @@
 from flask import render_template, send_from_directory, Blueprint, url_for, session, redirect
 
+from core.function import init_session
+
 router = Blueprint('route', __name__)
 
 
@@ -46,7 +48,9 @@ def login():
 
 @router.route('/o/')
 def logout():
+    keep_view = session['view_mode']
     session.clear()
+    session['view_mode'] = keep_view
     return redirect(url_for('route.index'))
 
 
@@ -75,7 +79,7 @@ def submit(post_id=None):
 def tags(tag=None):
     if not tag:
         from core.database import get_tag_count
-        return render_template('tags.html', tag_count=get_tag_count())
+        return render_template(f'{session["view_mode"]}/tags.html', tag_count=get_tag_count())
     else:
         from routes import tag as run
         return run.route(tag)
@@ -97,12 +101,12 @@ def user(viewuser=None):
 @router.route('/d/')
 @router.route('/d/<domain_urls>')
 def domains():
-    return render_template('domains.html')
+    return render_template(f'{session["view_mode"]}/domains.html')
 
 
 @router.route('/a/')
 def about():
-    return render_template('about.html')
+    return render_template(f'{session["view_mode"]}/about.html')
 
 
 @router.route('/r/')
@@ -124,3 +128,10 @@ def top():
 def subscribe(viewuser=None):
     from routes import rss as run
     return run.route(viewuser)
+
+
+@router.route('/v/')
+def change_view():
+    init_session()
+    session['view_mode'] = 'mobile' if session['view_mode'] == 'desktop' else 'desktop'
+    return redirect(url_for('route.index'))

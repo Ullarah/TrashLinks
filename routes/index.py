@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import render_template, request, session
 
 from core.function import post_reformat, init_session
 from core.database import get_all_posts
@@ -11,4 +11,4 @@ def route():
     page_info = get_all_posts(page)
     for post in page_info.items:
         list_of_posts.append(post_reformat(post))
-    return render_template('index.html', page=page_info, posts=list_of_posts)
+    return render_template(f'{session["view_mode"]}/index.html', page=page_info, posts=list_of_posts)

@@ -2,7 +2,7 @@ import argparse
 import os
 
 from better_profanity import profanity
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from flask_sqlalchemy import SQLAlchemy
 from waitress import serve
 
@@ -24,7 +24,7 @@ db = SQLAlchemy(server)
 
 @server.errorhandler(404)
 def page_not_found(error):
-    return render_template('error.html', error=f'{error.code} {error.name}')
+    return render_template(f'{session["view_mode"]}/error.html', error=f'{error.code} {error.name}')
 
 
 if __name__ == '__main__':

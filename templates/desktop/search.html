@@ -1,10 +1,42 @@
-{% extends 'base.html' %}
+{% extends 'desktop/base.html' %}
 
-{% block header %}<h1>{% block title %}Quisquiliae{% endblock %}</h1>{% endblock %}
+{% block header %}<h1>{% block title %}Quisquiliae - Search{% endblock %}</h1>{% endblock %}
 
 {% block content %}
-{% if post_success %}
-<div style="margin:10px 0 10px 0"><span class="label label-success">Great job, keep it up!</span></div>{% endif %}
+<div class="divider"></div>
+<strong>Search</strong>
+<div style="margin:10px 0 10px 0"><span><em>!tag</em> or <em>!domain</em> or <em>!user</em> can be at the beginning of a search.</span>
+</div>
+<div class="columns">
+    <div class="column col-9 col-sm-12">
+        <form action="{{ url_for('route.search') }}" class="form-horizontal" method="get">
+            <div class="form-group">
+                <div class="col-2 col-sm-12">
+                    <label class="form-label" for="q">Search Query</label>
+                </div>
+                <div class="col-9 col-sm-12">
+                    <input class="form-input" id="q" name="q" required type="text" value="{{ query }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-10 col-sm-12 col-ml-auto">
+                    <input class="btn" type="submit" value="Search"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% if nothing_found %}
+<div class="divider"></div>
+<div style="margin:10px 0 10px 0"><span class="label label-warning">Nothing found for that query!</span>
+</div>{% endif %}
+{% if empty_query %}
+<div class="divider"></div>
+<div style="margin:10px 0 10px 0"><span class="label label-error">You can't search for nothing!</span></div>{% endif %}
+{% if is_valid_search %}
+<div class="divider"></div>
+<div style="margin:10px 0 10px 0"><span
+        class="label label-success">Found {{ search_count }} results for {{ query }}</span></div>
 <table class="table table-hover">
     <tbody>{% for p in posts %}
     <tr style="font-size:0.85em;">
@@ -38,11 +70,11 @@
                     <a class="text-dark" href="https://archive.md/{{ p[2] }}" style="text-decoration:none">archive</a>
                     {% if p[4] == session['username'] %}| <a class="text-dark" href="/m/edit/{{ p[0] }}"
                                                                 style="text-decoration:none">edit</a> |
-                    <a class="text-dark" href="/rm/{{ p[0] }}" style="text-decoration:none">remove</a>{% endif %}
+                    <a class="text-dark" href="#" style="text-decoration:none">remove</a>{% endif %}
                 </span>
             <span style="float:right">
                     <small><i>
-                        <a href="/rp/{{ p[0] }}">report</a>
+                        <a href="#">report</a>
                     </i></small>
                 </span>
         </td>
@@ -50,17 +82,20 @@
     {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}
 {% block pagenav %}
+{% if is_valid_search %}
 <div class="text-right">
     <a class="btn btn-link
        {% if page.page == 1 %}disabled{% endif %}"
-       href="{{ url_for('route.index', p=page.prev_num) }}"> Prev
+       href="{{ url_for('route.search', p=page.prev_num, q=query) }}"> Prev
     </a>
     <a class="btn btn-link
        {% if page.page == page.pages %}disabled{% endif %}"
-       href="{{ url_for('route.index', p=page.next_num) }}"> Next
+       href="{{ url_for('route.search', p=page.next_num, q=query) }}"> Next
     </a>
 </div>
 <span style="padding-left:10px" class="text-gray">Page {{ page.page }} of {{ page.pages }}</span>
+{% endif %}
 {% endblock %}

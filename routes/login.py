@@ -16,10 +16,10 @@ def route():
                 session['logged_in'], session['username'], session['current_page'] = True, user_login.username, 1
                 return redirect(url_for('route.index'))
             else:
-                return render_template('login.html', error=True)
+                return render_template(f'{session["view_mode"]}/login.html', error=True)
         else:
-            return render_template('login.html', error=True)
+            return render_template(f'{session["view_mode"]}/login.html', error=True)
     elif request.method == 'GET':
-        return render_template('login.html')
+        return render_template(f'{session["view_mode"]}/login.html')
     else:
         return redirect(url_for('route.index'))

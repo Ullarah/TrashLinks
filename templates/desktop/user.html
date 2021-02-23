@@ -1,0 +1,187 @@
+{% extends 'desktop/base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - User: {{ viewuser }}{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div class="divider"></div>
+<strong>About {{ viewuser }}</strong>
+{% if error %}
+<div style="margin:10px 0 10px 0"><span class="label label-error">This user does not exist!</span></div>{% else %}
+{% if short_password %}
+<div style="margin:10px 0 10px 0"><span class="label label-error">Use a better password!</span></div>{% endif %}
+<div class="accordion">
+    <input checked hidden id="accordion-user-details" name="user-details" type="radio">
+    <label class="accordion-header c-hand" for="accordion-user-details">
+        <i class="bi-chevron-down"></i> Details
+    </label>
+    <div class="accordion-body">
+        <div class="columns">
+            <div class="column col-9 col-sm-10">
+                <form action="/pw/" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <div class="col-2 col-sm-12">
+                            <label class="form-label">Post Score</label>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <input class="form-input" readonly type="text" value="{{ points }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-2 col-sm-12">
+                            <label class="form-label">Submissions</label>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <input class="form-input" readonly type="text" value="{{ submissions }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-2 col-sm-12">
+                            <label class="form-label">Last Login</label>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <input class="form-input" readonly type="text" value="{{ last_login }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-2 col-sm-12">
+                            <label class="form-label">Invited By</label>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <input class="form-input" readonly type="text" value="{{ invited_by }}">
+                        </div>
+                    </div>
+                    {% if can_see_invite_code %}
+                    <div class="form-group">
+                        <div class="col-2 col-sm-12">
+                            <label class="form-label">Invite Code</label>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <input class="form-input" readonly type="text" value="{{ invite_code }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-2 col-sm-12">
+                            <label class="form-label" for="password">Password</label>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <input class="form-input" id="password" name="password" required type="password">
+                            <input class="form-input" id="username" name="username" required type="hidden"
+                                   value="{{ viewuser }}">
+                        </div>
+                        <div class="col-3 col-sm-12" style="padding-left:7px">
+                            <input class="btn" type="submit" value="Change"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-2 col-sm-12">
+                            <label class="form-label">Options</label>
+                        </div>
+                        <div class="col-6 col-sm-12">
+                            <label class="form-checkbox">
+                                <input type="checkbox" id="dark-mode" name="dark-mode">
+                                <i class="form-icon"></i> Dark Mode
+                            </label>
+                        </div>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% if num_posts > 0 %}
+<div class="accordion">
+    <input hidden id="accordion-user-top" name="user-details" type="radio">
+    <label class="accordion-header c-hand" for="accordion-user-top">
+        <i class="bi-chevron-down"></i> Top Submissions
+    </label>
+    <div class="accordion-body">
+        <table class="table table-hover">
+            <tbody>{% for p in top_posts %}
+            <tr style="font-size:0.85em;">
+                <td style="width:30px;text-align:center">
+                    {% if p[10] > 86400 %}
+                    <span class="text-gray">
+                <span class="text-gray" style="cursor:pointer;text-decoration:none;font-size:1.05em">▲</span>
+            </span><br/>
+                    <span class="text-dark">{{ p[8] }}</span>
+                    {% else %}
+                    <span class="text-dark">
+                <a class="text-dark" href="/up/{{ p[0] }}" style="text-decoration:none;font-size:1.05em">▲</a>
+            </span><br/>
+                    <span class="text-dark">{{ p[8] }}</span>
+                    {% endif %}
+                </td>
+                <td style="width:90px;text-align:center">
+                    <span style="padding-left:7px"></span>
+                    <a class="text-dark" href="/g/{{ p[7] }}" style="text-decoration:none">
+                        <span class="label">{{ p[7] }}</span>
+                    </a>
+                </td>
+                <td nowrap>
+                    <a class="text-primary" href="{{ p[2] }}" style="text-decoration:none">
+                                        <span class="tooltip tooltip-left"
+                                              data-tooltip="{{ p[3] }}"><strong>{{ p[1] }}</strong></span>
+                    </a>
+                    <br>
+                    <span>Posted by
+                    <a class="text-dark" href="/u/{{ p[4] }}" style="text-decoration:none">{{ p[4] }}</a>
+                    <span class="tooltip tooltip-bottom" data-tooltip="{{ p[5] }}">{{ p[6] }}</span> |
+                    <a class="text-dark" href="#" style="text-decoration:none">archive</a>
+                </span>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="accordion">
+    <input hidden id="accordion-user-recent" name="user-details" type="radio">
+    <label class="accordion-header c-hand" for="accordion-user-recent">
+        <i class="bi-chevron-down"></i> Recent Submissions
+    </label>
+    <div class="accordion-body">
+        <table class="table table-hover">
+            <tbody>{% for p in recent_posts %}
+            <tr style="font-size:0.85em;">
+                <td style="width:30px;text-align:center">
+                    {% if p[10] > 86400 %}
+                    <span class="text-gray">
+                <span class="text-gray" style="cursor:pointer;text-decoration:none;font-size:1.05em">▲</span>
+            </span><br/>
+                    <span class="text-dark">{{ p[8] }}</span>
+                    {% else %}
+                    <span class="text-dark">
+                <a class="text-dark" href="/up/{{ p[0] }}" style="text-decoration:none;font-size:1.05em">▲</a>
+            </span><br/>
+                    <span class="text-dark">{{ p[8] }}</span>
+                    {% endif %}
+                </td>
+                <td style="width:90px;text-align:center">
+                    <span style="padding-left:7px"></span>
+                    <a class="text-dark" href="/g/{{ p[7] }}" style="text-decoration:none">
+                        <span class="label">{{ p[7] }}</span>
+                    </a>
+                </td>
+                <td nowrap>
+                    <a class="text-primary" href="{{ p[2] }}" style="text-decoration:none">
+                                        <span class="tooltip tooltip-left"
+                                              data-tooltip="{{ p[3] }}"><strong>{{ p[1] }}</strong></span>
+                    </a>
+                    <br>
+                    <span>Posted by
+                    <a class="text-dark" href="/u/{{ p[4] }}" style="text-decoration:none">{{ p[4] }}</a>
+                    <span class="tooltip tooltip-bottom" data-tooltip="{{ p[5] }}">{{ p[6] }}</span> |
+                    <a class="text-dark" href="#" style="text-decoration:none">archive</a>
+                </span>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}

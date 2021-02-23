@@ -1,0 +1,45 @@
+{% extends 'mobile/base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - Recent{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div class="divider"></div>
+<strong>Recently edited/upvoted posts</strong>
+<table class="table table-hover">
+    <tbody>{% for p in posts %}
+    <tr style="font-size:0.85em;">
+        <td style="width:30px;text-align:center">
+            {% if p[10] > 86400 %}
+            <span class="text-gray">
+                <span class="text-gray" style="cursor:pointer"><i class="bi-caret-up-fill" style="font-size: 1.75em"></i></span>
+            </span><br/>
+            <span class="text-dark">{{ p[8] }}</span>
+            {% else %}
+            <span class="text-dark">
+                <a class="text-dark" href="/up/{{ p[0] }}"><i class="bi-caret-up-fill" style="font-size: 1.75em"></i></a>
+            </span><br/>
+            <span class="text-dark">{{ p[8] }}</span>
+            {% endif %}
+        </td>
+        <td>
+            <a class="text-dark" href="/g/{{ p[7] }}" style="text-decoration:none">
+                <span class="label">{{ p[7] }}</span>
+            </a><a class="text-primary" href="{{ p[2] }}" style="text-decoration:none">
+                <strong style="word-wrap: break-word;">{{ p[1] }}</strong>
+            </a>
+            <br>
+            <span>
+                    <a class="text-dark" href="/u/{{ p[4] }}" style="text-decoration:none">{{ p[4] }}</a>
+                    <span>{{ p[6] }}</span><br>
+                    <a class="text-dark" href="https://archive.md/{{ p[2] }}" style="text-decoration:none"><i class="bi-archive" style="font-size: 1.5em"></i></a>&nbsp;&nbsp;
+                    {% if p[4] == session['username'] %}<a class="text-dark" href="/m/edit/{{ p[0] }}"
+                                                                style="text-decoration:none"><i class="bi-pencil-square" style="font-size: 1.5em"></i></a>&nbsp;&nbsp;
+                    <a class="text-dark" href="/rm/{{ p[0] }}" style="text-decoration:none"><i class="bi-x-square" style="font-size: 1.5em"></i></a>&nbsp;&nbsp;{% endif %}
+                    <a href="/rp/{{ p[0] }}"><i class="bi-exclamation-square" style="float:right;color:red;font-size: 1.5em"></i></a>
+                </span>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'mobile/base.html' %}
+
+{% block header %}<h1>{% block title %}Quisquiliae - Oops{% endblock %}</h1>{% endblock %}
+
+{% block content %}
+<div style="background-color:#fff;" class="empty">
+    <p class="empty-title h5">{{ error }}</p>
+    <p class="empty-subtitle">Oh that's embarrassing...</p>
+</div>
+{% endblock %}
