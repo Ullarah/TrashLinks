@@ -1,23 +1,23 @@
 import datetime
 import html
 
-from flask import make_response
+from flask import make_response, session
 from feedgen.feed import FeedGenerator
 from markupsafe import Markup
 
 
-from core.function import init_session
+from core.function import init_session, get_config_value
 from core.database import get_all_posts_for_rss, get_all_user_posts_for_rss
 
 
 def route(user):
     init_session()
     fg = FeedGenerator()
-    fg.title('Quisquiliae')
+    fg.title(session['site_name'])
     fg.subtitle('Trash bag of links')
-    fg.generator('Quisquiliae')
-    fg.link(href='https://quisquiliae.com')
-    fg.logo('http://quisquiliae.com/static/img/logo.png')
+    fg.generator(session['site_name'])
+    fg.link(href=get_config_value('address'))
+    fg.logo(f'{get_config_value("address")}/static/img/logo.png')
     fg.language('en')
 
     rss_posts = get_all_posts_for_rss() if user is None else get_all_user_posts_for_rss(user)

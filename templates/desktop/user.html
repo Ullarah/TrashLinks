@@ -1,6 +1,6 @@
 {% extends 'desktop/base.html' %}
 
-{% block header %}<h1>{% block title %}Quisquiliae - User: {{ viewuser }}{% endblock %}</h1>{% endblock %}
+{% block header %}<h1>{% block title %}{{ session['site_name'] }} - User: {{ viewuser }}{% endblock %}</h1>{% endblock %}
 
 {% block content %}
 <div class="divider"></div>

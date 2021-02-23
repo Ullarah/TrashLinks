@@ -1,6 +1,6 @@
 {% extends 'desktop/base.html' %}
 
-{% block header %}<h1>{% block title %}Quisquiliae - {{ tag }}{% endblock %}</h1>{% endblock %}
+{% block header %}<h1>{% block title %}{{ session['site_name'] }} - {{ tag }}{% endblock %}</h1>{% endblock %}
 
 {% block content %}
 <table class="table table-hover">

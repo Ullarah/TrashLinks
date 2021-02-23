@@ -1,6 +1,6 @@
 {% extends 'desktop/base.html' %}
 
-{% block header %}<h1>{% block title %}Quisquiliae{% endblock %}</h1>{% endblock %}
+{% block header %}<h1>{% block title %}{{ session['site_name'] }}{% endblock %}</h1>{% endblock %}
 
 {% block content %}
 {% if post_success %}

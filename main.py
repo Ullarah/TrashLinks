@@ -29,12 +29,12 @@ def page_not_found(error):
 
 
 if __name__ == '__main__':
-    print(f"TrashLinks {get_config_value('version')}")
+    print(f"{get_config_value('site_name')} {get_config_value('version')}")
 
     profanity.load_censor_words()
     database.init()
 
-    parser = argparse.ArgumentParser(prog='trash-links')
+    parser = argparse.ArgumentParser(prog=get_config_value('site_name'))
 
     parser.add_argument('-d', type=bool, choices=[True, False], default=False, dest='debug', help='debug mode')
     parser.add_argument('-o', type=str, default='0.0.0.0', dest='host', help='serving ip address')

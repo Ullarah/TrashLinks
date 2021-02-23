@@ -1,6 +1,6 @@
 {% extends 'mobile/base.html' %}
 
-{% block header %}<h1>{% block title %}Quisquiliae - Search{% endblock %}</h1>{% endblock %}
+{% block header %}<h1>{% block title %}{{ session['site_name'] }} - Search{% endblock %}</h1>{% endblock %}
 
 {% block content %}
 <div class="divider"></div>
@@ -80,12 +80,14 @@
 <div class="text-right">
     <a class="btn btn-link
        {% if page.page == 1 %}disabled{% endif %}"
-       href="{{ url_for('route.search', p=page.prev_num, q=query) }}"> <i class="bi-chevron-double-left" style="font-size: 1.5em"></i>
+       href="{{ url_for('route.index', p=page.prev_num, q=query) }}" style="margin-top:-10px">
+        <i class="bi-chevron-double-left" style="font-size: 1.5em"></i>
     </a>
-    <span class="text-gray">{{ page.page }} / {{ page.pages }}</span>
+    <span class="text-gray" style="font-size:1.25em">{{ page.page }} / {{ page.pages }}</span>
     <a class="btn btn-link
        {% if page.page == page.pages %}disabled{% endif %}"
-       href="{{ url_for('route.search', p=page.next_num, q=query) }}"> <i class="bi-chevron-double-right" style="font-size: 1.5em"></i>
+       href="{{ url_for('route.index', p=page.next_num, q=query) }}" style="margin-top:-10px">
+        <i class="bi-chevron-double-right" style="font-size: 1.5em"></i>
     </a>
 </div>
 {% endif %}

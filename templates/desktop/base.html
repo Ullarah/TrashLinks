@@ -11,7 +11,7 @@
 <header class="navbar">
     <section class="navbar-section">
         <a href="{{ url_for('route.index') }}"><img style="float:left;margin-left:5px;width:32px" src="{{ url_for('static', filename='img/logo.png') }}"></a>
-        <a class="btn btn-link" href="{{ url_for('route.index') }}"><strong>Quisquiliae</strong></a>
+        <a class="btn btn-link" href="{{ url_for('route.index') }}"><strong>{{ session['site_name'] }}</strong></a>
         {% if session['logged_in'] %}<a class="btn btn-link" href="{{ url_for('route.submit') }}">Submit</a>{% endif %}
         <a class="btn btn-link" href="{{ url_for('route.recent') }}">Recent</a>
         <a class="btn btn-link" href="{{ url_for('route.top') }}">Top</a>

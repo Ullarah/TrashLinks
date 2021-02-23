@@ -10,7 +10,7 @@ body{
     background-color: #ccc;
 }
 .truncate {
-  width: 50px;
+  width: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

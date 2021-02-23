@@ -1,5 +1,6 @@
 {
   "site_name": "TrashLinks",
+  "address": "https://quisquiliae.com",
   "version": "2021.02.23.e",
   "database": "data/database.db",
   "telegram": {

@@ -17,8 +17,9 @@ def get_config_value(value):
 
 
 def init_session():
-    for s in ['logged_in', 'username', 'current_page', 'dark_mode', 'view_mode']:
+    for s in ['site_name', 'logged_in', 'username', 'current_page', 'dark_mode', 'view_mode']:
         if s not in session:
+            session['site_name'] = get_config_value('site_name')
             session['logged_in'] = False
             session['username'] = None
             session['current_page'] = 0
