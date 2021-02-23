@@ -4,7 +4,14 @@
 
 {% block content %}
 <div class="divider"></div>
-<strong>About Quisquiliae</strong>
+<strong>About {{ session['site_name'] }}</strong>
 <p></p>
-<p>Something about the project here I guess... not really important to finish right now.</p>
+<p>This is a hobby project made by a hobby programmer. It came about after a brief discussion about how nice it
+    would be if there was a personal link aggregator like Reddit.<br><br>After looking around at several solutions
+    already
+    created (and one stupid email) I decided to create a simple (and badly coded) page for users to post their internet
+    finds.<br><br>It doesn't have many features, but it has enough for what I need. This was inspired by not only
+    <a href="https://old.reddit.com/">Reddit</a> but sites like <a href="https://news.ycombinator.com/">Hacker News</a>
+    and <a href="https://lobste.rs/">Lobsters</a>.
+    <br><br><a href="https://github.com/Ullarah/TrashLinks">Link to the original project.</a></p>
 {% endblock %}
