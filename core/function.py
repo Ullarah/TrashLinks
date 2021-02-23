@@ -7,7 +7,7 @@ from json import loads
 from urllib.parse import urlparse
 
 import requests
-from flask import session
+from flask import session, request
 from markupsafe import Markup
 from tldextract import tldextract
 
@@ -23,7 +23,7 @@ def init_session():
             session['username'] = None
             session['current_page'] = 0
             session['dark_mode'] = False
-            session['view_mode'] = 'desktop'
+            session['view_mode'] = 'mobile' if request.user_agent.platform in ['android', 'iphone'] else 'desktop'
 
 
 def generate_code(length=8):
