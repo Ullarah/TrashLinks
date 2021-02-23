@@ -6,7 +6,11 @@
 {% if post_success %}
 <div style="margin:10px 0 10px 0"><span class="label label-success">Great job, keep it up!</span></div>{% endif %}
 <div class="divider"></div>
-<strong>New posts</strong>
+{% if tags %}
+<strong style="text-transform:capitalize">{{ tags }} Posts</strong>
+{% else %}
+<strong>New Posts</strong>
+{% endif %}
 <table class="table table-hover">
     <tbody>{% for p in posts %}
     <tr style="font-size:0.85em;">

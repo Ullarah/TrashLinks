@@ -127,12 +127,12 @@ def get_user_by_invite_code(invite_code):
     return User.query.with_entities(User.username, User.invite_code).filter_by(invite_code=invite_code).first()
 
 
-def get_all_posts(page):
-    return Post.query.order_by(desc('datetime')).paginate(page=page, per_page=10)
+def get_all_posts(page, num=10):
+    return Post.query.order_by(desc('datetime')).paginate(page=page, per_page=num)
 
 
-def get_all_posts_with_tag(tag, page):
-    return Post.query.filter_by(tags=tag).order_by(desc('datetime')).paginate(page=page, per_page=10)
+def get_all_posts_with_tag(tag, page, num=10):
+    return Post.query.filter_by(tags=tag).order_by(desc('datetime')).paginate(page=page, per_page=num)
 
 
 def get_all_recent_updated_posts(user=None):
